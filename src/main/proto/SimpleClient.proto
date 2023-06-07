@@ -1,0 +1,32 @@
+syntax = "proto3";
+package ru.karaban.grpc;
+option java_outer_classname = "TelemetryProto";
+
+message ImageRequest  {
+
+  string user_name = 1;
+  int32 camera_id = 2;
+}
+
+message TelemetryRequest {
+
+  string place = 1;
+}
+
+message ImageResponse {
+  bytes data = 1;
+}
+
+message Telemetry {
+  float temperature = 1;
+  float pressure = 2;
+  float humidity = 3;
+}
+
+service TelemetryService {
+  rpc getTelemetry(TelemetryRequest) returns (Telemetry);
+}
+
+service SimpleImageService {
+  rpc getImage(ImageRequest) returns (stream ImageResponse);
+}
